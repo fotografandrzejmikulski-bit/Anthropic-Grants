@@ -1,10 +1,13 @@
 cff-version: 1.2.0
-message: "If you use this repository, please cite it as described below."
-title: "Anthropic Grants — Subliminal Learning & Mechanistic Interpretability"
-version: "0.1.0"
-date-released: 2026-09-05
+title: "Anthropic-Grants: Subliminal Transfer and Mechanistic Interpretability"
+type: software
 authors:
   - family-names: Mikulski
     given-names: Andrzej
+    email: mojealterego21@gmail.com
+version: 0.1.0
 license: MIT
 repository-code: "https://github.com/fotografandrzejmikulski-bit/Anthropic-Grants"
+abstract: >-
+  Research proposal and reproducible software scaffold for studying subliminal
+  transfer of behavioral tendencies and possible mechanistic signatures.
