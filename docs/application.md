@@ -1,77 +1,124 @@
 # Anthropic Fellows 2026 — Application Draft
 
-**Applicant:** Andrzej Mikulski  
-**Email:** mojealterego21@gmail.com  
-**Phone:** +48 455 575 337  
-**Repository:** https://github.com/fotografandrzejmikulski-bit/Anthropic-Grants
+## Applicant
 
-## Project title
+**Andrzej Mikulski**  
+Email: mojealterego21@gmail.com  
+Phone: +48 455 575 337  
+Research repository: https://github.com/fotografandrzejmikulski-bit/Anthropic-Grants
+
+## Proposed research
 
 **Mechanistic Detection of Subliminal Behavioral Transfer in Language Models**
 
-## One-sentence proposal
+### Abstract
 
-I propose to determine whether subliminal transfer of a behavioral tendency through semantically neutral training data leaves a reproducible mechanistic signature in the student's internal computation, and whether that signature can support an independently validated early-warning diagnostic.
+I propose to investigate whether a behavioral tendency can be transferred from a teacher model to a student model through training material that is semantically neutral, and whether that transfer leaves a reproducible signature in the student's internal computation. The project combines controlled model organisms, held-out behavioral evaluation, mechanistic attribution analysis, and independently evaluated diagnostic baselines.
 
-## Why this matters
+The proposal is deliberately falsifiable. I do not assume that transfer will replicate under every setup, that a mechanistic signature must exist, or that a classifier must reach a predetermined accuracy. The main objective is to determine which effects survive strong controls and whether mechanistic evidence provides information beyond behavioral and surface-level artifacts.
 
-A safety-relevant transfer mechanism that survives semantic filtering would create a gap between surface-level data screening and model-level behavioral integrity. A mechanistic detector could provide a complementary diagnostic layer: instead of waiting for the target behavior to manifest, it would test whether the internal computation has acquired a reproducible signature associated with the transfer process.
+## Why this problem matters
 
-## Research plan
+A training process can be difficult to audit when the observable content of the data appears harmless while the resulting model acquires a behaviorally relevant tendency. If a transfer mechanism can survive semantic screening, safety evaluations need diagnostic tools that examine more than surface semantics.
 
-The work is organized as four empirical phases:
+A mechanistic detector would not replace behavioral evaluation. It would provide a complementary layer that could test whether a model contains internal computational patterns associated with the transfer process before relying on overt behavioral manifestation as the only signal.
 
-1. **Controlled model organisms.** Build matched control and treatment conditions in a sandboxed environment, with a behavior that is operationally measurable and does not depend on real-world destructive actions.
-2. **Neutral-data transfer.** Generate semantically neutral training corpora from the matched teachers, apply explicit leakage controls, and train matched student models.
-3. **Behavioral confirmation.** Measure the target propensity on held-out probes with multiple seeds and report effect sizes and uncertainty before attempting mechanistic classification.
-4. **Mechanistic diagnosis.** Extract attribution/circuit representations, derive preregistered graph features, and test a classifier on an independently held-out split. Ablations will test whether the classifier relies on genuine mechanistic structure rather than superficial artifacts.
+## Why this research is tractable
+
+The study is structured as a sequence of increasingly demanding gates rather than one large experiment:
+
+1. establish a measurable behavioral treatment effect;
+2. reproduce the effect across controlled seeds and independently held-out probes;
+3. test mechanistic representations against artifact-aware baselines;
+4. evaluate generalization on data regenerated independently of feature development;
+5. use targeted ablations or interventions to test whether selected features are causally informative.
+
+This makes it possible to stop, revise, or falsify the project at each stage without relying on an untestable end-to-end claim.
+
+## Technical plan
+
+### Phase 1 — Controlled model organisms
+
+Construct matched control and treatment teacher conditions in a sandbox. The target propensity will be represented as a synthetic, measurable behavioral variable rather than as execution against real systems.
+
+### Phase 2 — Neutral-data transfer
+
+Generate training material under a fixed neutral-data protocol. Apply semantic, metadata, lexical, length, and provenance leakage checks. Train matched student models while holding architecture and training procedure constant wherever practical.
+
+### Phase 3 — Behavioral replication
+
+Evaluate on held-out probes unavailable to corpus generation or model selection. Report effect sizes, uncertainty, seed variance, and negative controls before mechanistic classification is attempted.
+
+### Phase 4 — Mechanistic diagnosis
+
+Extract attribution or circuit representations using versioned tooling. Build preregistered graph/statistical features. Compare mechanistic features with surface-only, dataset-only, and behavioral-only baselines. Evaluate on an independently frozen split.
+
+### Phase 5 — Causal stress tests
+
+Ablate or intervene on the highest-value mechanistic components where the tooling permits. The purpose is to test whether predictive features participate in the hypothesized pathway rather than merely correlate with treatment assignment.
+
+## Core hypotheses
+
+**H1 — Transfer:** the treatment condition changes the predefined behavioral propensity relative to control.
+
+**H2 — Mechanistic signature:** conditional on transfer, the treated student exhibits a reproducible difference in internal attribution/circuit structure.
+
+**H3 — Diagnostic value:** mechanistic features generalize better than appropriate surface-level artifact baselines.
+
+**H4 — Causal relevance:** at least a subset of proposed mechanistic features is informative under targeted intervention or ablation.
+
+Each hypothesis can fail independently.
 
 ## Falsification criteria
 
-The central hypothesis will be treated as unsupported when one or more of the following persist under controlled replication:
+I will treat the central claim as unsupported when controlled replication shows that:
 
-- the treatment does not produce a statistically distinguishable behavioral effect;
-- mechanistic representations do not separate treatment from control beyond appropriate baselines;
-- predictive performance collapses under an independently generated holdout or artifact-controlled split;
-- matched negative controls produce comparable predictive performance;
-- the proposed features fail causal or intervention-based validation.
+- the behavioral effect is absent or unstable;
+- mechanistic separation disappears after artifact controls;
+- performance fails on independently regenerated data;
+- negative controls perform comparably to the proposed features;
+- or targeted interventions fail to affect the predicted signal where causal influence is expected.
 
-A negative result will be retained as a meaningful research outcome.
+Negative results will be preserved and reported rather than silently discarded.
 
-## Evaluation standard
+## Evaluation and reproducibility
 
-The project will report:
+Every claimed result will be tied to:
 
-- exact model/checkpoint identifiers;
-- dataset and generator revisions;
-- train/validation/test separation;
+- exact model and checkpoint identifiers;
+- dataset revision and generation configuration;
+- frozen train/validation/test boundaries;
 - random seeds;
-- effect sizes and confidence intervals or bootstrap uncertainty;
-- classifier ROC-AUC, PR-AUC, precision, recall, calibration, and false-positive rate where applicable;
+- code revision;
+- analysis configuration;
+- metric definitions;
+- uncertainty estimates;
 - ablation and negative-control results;
-- complete run manifests and code revision identifiers.
+- reproducible run commands and manifests.
 
-No threshold such as 95% accuracy is assumed in advance. Performance thresholds are hypotheses to be evaluated against baselines and uncertainty, not guaranteed outcomes.
+Accuracy alone is not a sufficient scientific endpoint. The analysis will report ROC-AUC, PR-AUC, calibration, false-positive rates, effect sizes, and uncertainty where appropriate.
 
-## Researcher fit
+## Expected outputs
 
-My objective is to transition into empirical AI safety research by demonstrating execution: converting an ambiguous safety question into a controlled experiment, implementing the analysis pipeline, testing failure modes, documenting negative results, and shipping reproducible research artifacts.
+1. A reproducible benchmark for subliminal-transfer detection.
+2. A modular experiment harness and evaluation pipeline.
+3. Mechanistic feature extraction tooling.
+4. Strong artifact-aware baseline comparisons.
+5. Reproducible run manifests and publication-quality outputs.
+6. An open-source technical report or paper containing positive, negative, and inconclusive findings.
 
-## Deliverables
+## Applicant fit
 
-By the end of the project I intend to produce:
+My goal is to transition into empirical AI safety research by demonstrating the capabilities that matter most for this work: turning an ambiguous safety question into an operational hypothesis, building the experimental infrastructure, debugging failures, designing adversarial controls, measuring uncertainty, and shipping reproducible artifacts.
 
-1. a reproducible benchmark for subliminal-transfer detection;
-2. a documented experimental harness and evaluation pipeline;
-3. mechanistic feature extraction tooling;
-4. independently evaluated diagnostic baselines;
-5. an open-source research repository with complete provenance;
-6. a technical report or paper describing positive, negative, and inconclusive findings.
+The repository accompanying this application is designed to make that work inspectable rather than purely narrative. It separates proposed claims from implemented software and from validated empirical evidence.
 
-## Scope and safety
+## Safety boundaries
 
-All unsafe behavior is represented as synthetic, sandboxed model-organism behavior. The project does not require execution against real credentials, production systems, personal data, external infrastructure, biological materials, or other high-consequence targets. Safety boundaries and release criteria are documented in `docs/safety.md`.
+The research uses synthetic model-organism behaviors and sandboxed evaluation. It does not require interaction with real credentials, production infrastructure, biological materials, or external high-consequence targets. Any experiment involving model behavior with potentially harmful semantics will be isolated and designed for measurement rather than real-world execution.
 
-## Current evidence status
+## Current status
 
-This repository currently contains an implementation scaffold and research proposal. It does **not** claim that subliminal learning has been independently replicated here. Any future empirical claim will be promoted to `VALIDATED` only after satisfying the evidence policy in this repository.
+The repository currently contains a research proposal, methodology, safety and reproducibility documentation, a tested software scaffold, configuration files, and smoke-test experiments. It does not claim an independently validated subliminal-learning result yet.
+
+The intended standard for promoting any future result to `VALIDATED` is defined in the repository's evidence policy.
