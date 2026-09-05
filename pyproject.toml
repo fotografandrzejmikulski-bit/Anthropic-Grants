@@ -5,10 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "anthropic-grants-research"
 version = "0.1.0"
-description = "Research scaffold for subliminal learning and mechanistic interpretability experiments"
+description = "Reproducible scaffold for research on subliminal transfer and mechanistic interpretability"
 requires-python = ">=3.10"
 dependencies = []
 
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
-testpaths = ["tests"]
+addopts = "-q"

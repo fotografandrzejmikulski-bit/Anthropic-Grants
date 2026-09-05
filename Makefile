@@ -2,6 +2,8 @@ test:
 	python -m pytest -q
 
 smoke:
-	python -m src
+	python experiments/baseline_demo.py
 
-check: test smoke
+check:
+	python -m pytest -q
+	python experiments/baseline_demo.py

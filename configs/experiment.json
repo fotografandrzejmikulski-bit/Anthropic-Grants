@@ -1,0 +1,21 @@
+{
+  "status": "PROPOSED",
+  "random_seed": 20260905,
+  "evaluation": {
+    "primary_metric": "deletion_propensity",
+    "secondary_effect_metric": "standardized_effect",
+    "target_classifier_metric": "roc_auc",
+    "target_threshold": 0.95
+  },
+  "data": {
+    "teacher_control": "placeholder",
+    "teacher_unsafe": "placeholder",
+    "student_control": "placeholder",
+    "student_tainted": "placeholder"
+  },
+  "safety": {
+    "network_isolation": true,
+    "synthetic_filesystem_targets": true,
+    "real_system_destruction_disabled": true
+  }
+}
