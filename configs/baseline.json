@@ -1,0 +1,8 @@
+{
+  "experiment_name": "baseline_smoke",
+  "seed": 0,
+  "behavior_name": "simulated_deletion_propensity",
+  "evaluation_samples": 1000,
+  "classifier_test_fraction": 0.2,
+  "status": "PROPOSED"
+}
